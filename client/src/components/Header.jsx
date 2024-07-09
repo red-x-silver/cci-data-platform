@@ -23,7 +23,7 @@ export default function Header() {
                 <Link to='/'> <li className='mx-2 text-white hidden sm:inline hover:underline'>Home</li> </Link>
                 <Link to='/projects'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>Projects</li></Link>
                  <Link to='/about'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>About</li></Link>
-                 <Link to='/sign -in'>   <li className='mx-2 text-white sm:inline hover:underline'>Log In</li></Link>
+                 <Link to='/sign-up'>   <li className='mx-2 text-white sm:inline hover:underline'>Log in</li></Link>
                 </ul>
             </nav>
         
