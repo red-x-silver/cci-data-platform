@@ -3,15 +3,20 @@ import { useSelector } from 'react-redux';
 import { useRef,useState,useEffect } from 'react';
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 import { app } from '../firebase';
+import { set } from 'mongoose';
+import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Profile() {
   const fileInputRef = useRef(null);
-  const { currentUser } = useSelector(state => state.user);
+  const { currentUser, loading, error } = useSelector(state => state.user);
   //below [] are used for creating new state
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false); 
   const [formData, setFormData] = useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const dispatch = useDispatch();
   //console.log(formData);
 
   useEffect(() => {
@@ -58,11 +63,41 @@ export default function Profile() {
 
   }
   
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', //i wrote contentType instead of "Content-Type" initially and it was wrong, guess there is protocol for headers to conform to
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if(data.success === false){
+        dispatch(updateUserFailure(data.message));
+        return;
+      } else {
+        dispatch(updateUserSuccess(data));}
+        setUpdateSuccess(true);
+
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+
+  }
   
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center my-7 fron-semibold'>Profile</h1>
-      <form className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input 
         onChange={(e) => {setFile(e.target.files[0])}}
         type="file" ref={fileInputRef} hidden accept='image/*' />
@@ -79,30 +114,29 @@ export default function Profile() {
 
         </p>
 
-        <input type="text" placeholder="username" id="username"
-        className='border p-3 rounded-lg'>
+        <input type="text" placeholder="username" id="username" defaultValue = {currentUser.username}
+        className='border p-3 rounded-lg' onChange={handleChange}>
         </input>
 
-        <input type="text" placeholder="email" id="email"
-        className='border p-3 rounded-lg'>
+        <input type="text" placeholder="email" id="email" defaultValue = {currentUser.email}
+        className='border p-3 rounded-lg' onChange={handleChange}>
         </input>
 
-        <input type="text" placeholder="password" id="password"
-        className='border p-3 rounded-lg'>
+        <input type="password" placeholder="new password" id="password"
+        className='border p-3 rounded-lg' onChange={handleChange}>
         </input>
 
-        <button className='bg-blue-600 text-white rounded-lg p-3 hover:opacity-90 disabled:opacity-70'>
-          Update
+        <button disabled={loading} className='bg-blue-600 text-white rounded-lg p-3 hover:opacity-90 disabled:opacity-70'>
+          {loading ? 'Loading...' : 'Update'}
           </button>
 
       </form>
       <div className='flex justify-between mt-5'>
         <span className='text-red-600 cursor-pointer'>Delete account </span>
         <span className='text-red-600 cursor-pointer'>Sign out </span>
-        
-
-      </div>
-
+    </div>
+    <p className='text-red-600 mt-5'>{error ? error : ""}</p>
+    <p className='text-blue-600 mt-5'>{updateSuccess ? "User profile successfully updated." : ""}</p>
     </div>
   )
 }

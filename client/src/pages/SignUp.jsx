@@ -53,7 +53,7 @@ export default function SignUp() {
     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
       <input type="text" placeholder="username" className='border border-gray-300 rounded-md p-3 my-2' id='username' onChange={hangdleChange}/>
       <input type="text" placeholder="email" className='border border-gray-300 rounded-md p-3 my-2' id='email' onChange={hangdleChange}/>
-      <input type="text" placeholder="password" className='border border-gray-300 rounded-md p-3 my-2' id='password' onChange={hangdleChange}/>
+      <input type="password" placeholder="password" className='border border-gray-300 rounded-md p-3 my-2' id='password' onChange={hangdleChange}/>
       <button disabled={loading} className='bg-blue-600 p-3 rounded-lg hover:opacity-90 disabled:opacity-80'>
         {loading ? 'loading...' : 'Sign up'}
         </button>

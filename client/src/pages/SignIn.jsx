@@ -60,7 +60,7 @@ export default function SignIn() {
     <h1 className='text-3xl text-center my-7 fron-semibold'>Log in</h1>
     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
       <input type="text" placeholder="email" className='border border-gray-300 rounded-md p-3 my-2' id='email' onChange={hangdleChange}/>
-      <input type="text" placeholder="password" className='border border-gray-300 rounded-md p-3 my-2' id='password' onChange={hangdleChange}/>
+      <input type="password" placeholder="password" className='border border-gray-300 rounded-md p-3 my-2' id='password' onChange={hangdleChange}/>
       <button disabled={loading} className='bg-blue-600 p-3 rounded-lg hover:opacity-90 disabled:opacity-80'>
         {loading ? 'loading...' : 'Log in'}
         </button>
