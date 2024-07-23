@@ -4,7 +4,7 @@ import { useRef,useState,useEffect } from 'react';
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 import { app } from '../firebase';
 import { set } from 'mongoose';
-import { updateUserStart,updateUserSuccess,updateUserFailure } from '../redux/user/userSlice';
+import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserFailure,deleteUserSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 export default function Profile() {
@@ -16,6 +16,7 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false); 
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
   const dispatch = useDispatch();
   //console.log(formData);
 
@@ -94,6 +95,28 @@ export default function Profile() {
 
   }
   
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+      if(data.success === false){
+        dispatch(deleteUserFailure(data.message));
+        return;
+      } else {
+        dispatch(deleteUserSuccess(data));
+        setDeleteSuccess(true);
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center my-7 fron-semibold'>Profile</h1>
@@ -132,11 +155,12 @@ export default function Profile() {
 
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-600 cursor-pointer'>Delete account </span>
+        <span onClick={handleDeleteUser} className='text-red-600 cursor-pointer'>Delete account </span>
         <span className='text-red-600 cursor-pointer'>Sign out </span>
     </div>
     <p className='text-red-600 mt-5'>{error ? error : ""}</p>
     <p className='text-blue-600 mt-5'>{updateSuccess ? "User profile successfully updated." : ""}</p>
+    <p className='text-blue-600 mt-5'>{deleteSuccess ? "User profile successfully deleted." : ""}</p>
     </div>
   )
 }
