@@ -19,8 +19,8 @@ export default function Header() {
             </form> 
 
             <nav>
-                <ul className='flex gap-4 standard-text'>
-                <Link to='/'> <li className='mx-2 text-white hidden sm:inline hover:underline'>Home</li> </Link>
+                <ul className='flex gap-6 standard-text'>
+                <Link to='/'> <li className='mx-2 text-white hidden sm:inline hover:underline'>Datasets</li> </Link>
                 <Link to='/projects'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>Projects</li></Link>
                  <Link to='/about'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>About</li></Link>
                  <Link to='/sign-up'>   <li className='mx-2 text-white sm:inline hover:underline'>Log in</li></Link>

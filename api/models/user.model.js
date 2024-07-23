@@ -14,7 +14,12 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    avatar: {
+        type:String,
+        default:"https://wiki.cci.arts.ac.uk/uploads/images/gallery/2024-02/scaled-1680-/QIDK6deUudbGAezL-mirror.png"
+    },
+
 }, {timestamps: true}); 
 
 const User = mongoose.model('User', userSchema); 
