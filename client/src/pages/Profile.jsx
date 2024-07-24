@@ -6,6 +6,7 @@ import { app } from '../firebase';
 import { set } from 'mongoose';
 import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserFailure,deleteUserSuccess,signOutStart,signOutSuccess,signOutFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom';
 
 export default function Profile() {
   const fileInputRef = useRef(null);
@@ -168,9 +169,9 @@ export default function Profile() {
         </input>
 
         <button disabled={loading} className='bg-blue-600 text-white rounded-lg p-3 hover:opacity-90 disabled:opacity-70'>
-          {loading ? 'Loading...' : 'Update'}
+          {loading ? 'Loading...' : 'Update Profile'}
           </button>
-
+        <Link to='/upload-dataset' className='bg-blue-700 text-white rounded-lg p-3 hover:opacity-90 disabled:opacity-70 text-center'>Upload Dataset</Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-600 cursor-pointer'>Delete account </span>
