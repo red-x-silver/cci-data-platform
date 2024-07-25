@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
+import Dataset from '../models/dataset.model.js';
 
 export const test=(req, res) => {
     res.json({message: 'user api route is working'});
@@ -41,3 +42,17 @@ export const deleteUser = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getUserDatasets = async (req, res, next) => {
+
+    if (req.user.id === req.params.id) {
+        try {
+          const datasets = await Dataset.find({ userRef: req.params.id });
+          res.status(200).json(datasets);
+        } catch (error) {
+          next(error);
+        }
+      } else {
+        return next(errorHandler(401, 'You can only view your own datasets!'));
+      }
+}
