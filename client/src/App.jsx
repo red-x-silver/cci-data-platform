@@ -9,6 +9,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import UploadDataset from './pages/UploadDataset';
 import UpdateDataset from './pages/UpdateDataset';
+import Dataset from './pages/Dataset';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       </Route>
       
       <Route path="/sign-up" element={<SignUp />} />
+      <Route path="/dataset/:datasetId" element={<Dataset />} />
       <Route path="/log-in" element={<SignIn />} />
       <Route path="/About" element={<About />} />
       <Route path="/projects" element={<Projects />} />
