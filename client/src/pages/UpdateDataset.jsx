@@ -151,7 +151,7 @@ export default function UpdateDataset() {
        // return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/dataset/create', {
+      const res = await fetch(`/api/dataset/update/${params.datasetId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

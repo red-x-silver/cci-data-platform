@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { useSelector } from 'react-redux';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 import {
+  FaFly,
   FaBath,
   FaBed,
   FaChair,
@@ -59,11 +60,39 @@ export default function Dataset() {
 
       {dataset && !loading && !error && (
         <div>
+ 
+
+          <div className='flex flex-col max-w-7xl mx-auto p-3 my-7 gap-4'>
+
+          <div className='flex gap-5 text-black mt-2 '>
+            <p className='text-white bg-black text-5xl w-full p-2 rounded-md'>
+              {dataset.name}
+              {/* {dataset.offer
+                ? dataset.discountPrice.toLocaleString('en-US')
+                : dataset.regularPrice.toLocaleString('en-US')}
+              {dataset.type === 'rent' && ' / month'} */}
+            </p>
+            <Link to={`${dataset.downloadLink}`} className=' sm:w-50 p-3 text-white bg-black rounded-lg hover:shadow-lg disabled:opacity-80'>       
+            <button
+              type='button'
+              //disabled={uploading}
+              //onClick={handleImageSubmit}
+              className= "pt-2"
+            >
+              {/* {uploading ? 'Uploading...' : 'Upload'} */}
+              download
+            </button>
+            </Link>
+          </div>
+
+          <div className = "border border-black mt-5 pb-5">
+
+          <div className = "border border-black">
           <Swiper navigation>
             {dataset.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
-                  className='h-[550px]'
+                  className='h-[600px]'
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: 'cover',
@@ -72,7 +101,8 @@ export default function Dataset() {
               </SwiperSlide>
                 ))}
           </Swiper>
-          <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
+          </div>
+          {/* <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
             <FaShare
               className='text-slate-500'
               onClick={() => {
@@ -83,26 +113,45 @@ export default function Dataset() {
                 }, 2000);
               }}
             />
-          </div>
-          {copied && (
+          </div> */}
+          {/* {copied && (
             <p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>
               Link copied!
             </p>
-          )}
+          )} */}
 
-          {/* <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
-            <p className='text-2xl font-semibold'>
-              {dataset.name} - ${' '}
-              {dataset.offer
-                ? dataset.discountPrice.toLocaleString('en-US')
-                : dataset.regularPrice.toLocaleString('en-US')}
-              {dataset.type === 'rent' && ' / month'}
+            <p className='flex text-xl items-center mt-5 gap-2 pl-2 '>
+              <FaFly className='text-blue-600' />
+              {dataset.shortDescription}
             </p>
-            <p className='flex items-center mt-6 gap-2 text-slate-600  text-sm'>
-              <FaMapMarkerAlt className='text-green-700' />
-              {dataset.address}
-            </p>
-            <div className='flex gap-4'>
+
+            <ul className=' mt-5 pl-3 text-blue-600 font-semibold flex flex-wrap items-center gap-4 sm:gap-6'>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+                {dataset.visual
+                  ? 'visual'
+                  : ''}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+              {dataset.auditory
+                  ? 'auditory'
+                  : ''}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+              {dataset.textual
+                  ? 'textual'
+                  : ''}
+              </li>
+              <li className='flex items-center gap-1 whitespace-nowrap '>
+              {dataset.otherModality
+                  ? 'other modality'
+                  : ''}
+              </li>
+            </ul>
+
+
+            </div>
+
+            {/* <div className='flex gap-4'>
               <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
                 {dataset.type === 'rent' ? 'For Rent' : 'For Sale'}
               </p>
@@ -111,43 +160,37 @@ export default function Dataset() {
                   ${+dataset.regularPrice - +dataset.discountPrice} OFF
                 </p>
               )}
+            </div> */}
+  
+            <div className = " pb-5">
+
+            <div className='text-slate-800 mt-3 border border-b-0 border-black p-3'>
+              <p className='text-xl font-semibold text-black'>Description: </p>
+              <p className=' text-slate-700 mt-3' style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}> {dataset.longDescription}</p>    
             </div>
-            <p className='text-slate-800'>
-              <span className='font-semibold text-black'>Description - </span>
-              {dataset.description}
-            </p>
-            <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaBed className='text-lg' />
-                {dataset.bedrooms > 1
-                  ? `${dataset.bedrooms} beds `
-                  : `${dataset.bedrooms} bed `}
-              </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaBath className='text-lg' />
-                {dataset.bathrooms > 1
-                  ? `${dataset.bathrooms} baths `
-                  : `${dataset.bathrooms} bath `}
-              </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaParking className='text-lg' />
-                {dataset.parking ? 'Parking spot' : 'No Parking'}
-              </li>
-              <li className='flex items-center gap-1 whitespace-nowrap '>
-                <FaChair className='text-lg' />
-                {dataset.furnished ? 'Furnished' : 'Unfurnished'}
-              </li>
-            </ul>
-            {currentUser && dataset.userRef !== currentUser._id && !contact && (
-              <button
-                onClick={() => setContact(true)}
-                className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
-              >
-                Contact landlord
-              </button>
-            )}
-            {contact && <Contact dataset={dataset} />}
-          </div> */}
+
+            <div className='text-slate-800 border border-b-0 border-black p-3'>
+              <p className='text-xl font-semibold text-black'>Origin: </p>
+              <p className=' text-slate-700 mt-3'> {dataset.origin}</p>    
+            </div>
+
+            <div className='text-slate-800 border border-b-0 border-black p-3'>
+              <p className='text-xl font-semibold text-black'>License: </p>
+              <p className=' text-slate-700 mt-3'> {dataset.license}</p>    
+            </div>
+
+            <div className='text-slate-800 border border-b-0  border-black p-3'>
+              <p className='text-xl font-semibold text-black'>Recommended tasks: </p>
+              <p className=' text-slate-700 mt-3'> {dataset.tasks}</p>    
+            </div>
+            <div className='text-slate-800 border  border-black p-3'>
+              <p className='text-xl font-semibold text-black'>Example projects: </p>
+              <p className=' text-slate-700 mt-3'> projects xxx </p>    
+            </div>
+
+            </div>
+
+          </div>
         </div>
       )}
       </main>
