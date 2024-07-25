@@ -50,12 +50,12 @@ const datasetSchema = new mongoose.Schema({
         required: true
     },
     tasks: {
-        type: Array,
-        default: ["image classification"]
+        type: String,
+        default: "image classification"
     },
     tags: {
-        type: Array,
-        default: [""]
+        type: String,
+        default: ""
     },
     imageUrls: {
         type: Array,

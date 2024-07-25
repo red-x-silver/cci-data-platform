@@ -150,7 +150,7 @@ export default function UploadDataset() {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/dataset/${data._id}`);
+      //navigate(`/dataset/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
