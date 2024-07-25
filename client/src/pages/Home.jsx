@@ -9,26 +9,26 @@ import DatasetCard from '../components/DatasetCard';
 export default function Home() {
   const [trendDatasets, setTrendDatasets] = useState([]);
   const [imageDatasets, setImageDatasets] = useState([]);
-  const [rentDatasets, setRentDatasets] = useState([]);
+  const [audioDatasets, setAudioDatasets] = useState([]);
   SwiperCore.use([Navigation]);
   console.log(trendDatasets);
   useEffect(() => {
-    const fetchOfferDatasets = async () => {
+    const fetchTrendDatasets = async () => {
       try {
-        const res = await fetch('/api/dataset/get?offer=true&limit=4');
+        const res = await fetch('/api/dataset/get?');
         const data = await res.json();
         setTrendDatasets(data);
-        fetchRentDatasets();
+        //fetchRentDatasets();
       } catch (error) {
         console.log(error);
       }
     };
-    const fetchRentDatasets = async () => {
+    const fetchAudioDatasets = async () => {
       try {
-        const res = await fetch('/api/dataset/get?type=rent&limit=4');
+        const res = await fetch('/api/dataset/get?auditory=true');
         const data = await res.json();
-        setRentDatasets(data);
-        fetchSaleDatasets();
+        setAudioDatasets(data);
+        //fetchSaleDatasets();
       } catch (error) {
         console.log(error);
       }
@@ -43,7 +43,8 @@ export default function Home() {
         log(error);
       }
     };
-    fetchOfferDatasets();
+    fetchTrendDatasets();
+    fetchAudioDatasets();
   }, []);
   return (
     <div>
@@ -93,8 +94,8 @@ export default function Home() {
         {trendDatasets && trendDatasets.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
+              <h2 className='text-2xl font-semibold '>Most recent datasets</h2>
+              <Link className='text-sm text-blue-600 hover:underline' to={'/search?'}>Show more datasets</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {trendDatasets.map((dataset) => (
@@ -103,14 +104,14 @@ export default function Home() {
             </div>
           </div>
         )}
-        {rentDatasets && rentDatasets.length > 0 && (
+        {audioDatasets && audioDatasets.length > 0 && (
           <div className=''>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
+              <h2 className='text-2xl font-semibold'>Auditory datasets</h2>
+              <Link className='text-sm text-blue-800 hover:underline' to={'/search?auditory=true'}>Show more audio datasets</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
-              {rentDatasets.map((dataset) => (
+              {audioDatasets.map((dataset) => (
                 <DatasetCard dataset={dataset} key={dataset._id} />
               ))}
             </div>
@@ -120,7 +121,7 @@ export default function Home() {
           <div className=''>
             <div className='my-3'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for sale</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
+              <Link className='text-sm text-blue-800 hover:underline' to={'/search?visual=true'}>Show more places for sale</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {imageDatasets.map((dataset) => (

@@ -10,6 +10,7 @@ import PrivateRoute from './components/PrivateRoute';
 import UploadDataset from './pages/UploadDataset';
 import UpdateDataset from './pages/UpdateDataset';
 import Dataset from './pages/Dataset';
+import Search from './pages/Search';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       <Route path="/update-dataset/:datasetId" element={<UpdateDataset />} />
       </Route>
       
+      <Route path='/search' element={<Search />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/dataset/:datasetId" element={<Dataset />} />
       <Route path="/log-in" element={<SignIn />} />
