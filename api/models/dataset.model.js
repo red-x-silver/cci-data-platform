@@ -6,6 +6,25 @@ const datasetSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    visual: {
+        type: Boolean,
+        required: true,
+    },
+
+    textual: {
+        type: Boolean,
+        required: true,
+    },
+
+    auditory: {
+        type: Boolean,
+        required: true,
+    },
+    otherModality: {
+        type: Boolean,
+        required: true,
+    },
+
     shortDescription: {
         type: String,
         required: true
@@ -16,7 +35,7 @@ const datasetSchema = new mongoose.Schema({
     },
     downloadLink: {
         type: String,
-        required: true
+        default: "https://www.google.com/"
     },
     userRef:{
         type: String,
@@ -31,12 +50,12 @@ const datasetSchema = new mongoose.Schema({
         required: true
     },
     tasks: {
-        type: String,
-        default: "image classification"
+        type: Array,
+        default: ["image classification"]
     },
-    coverImage: {
-        type:String,
-        default:"https://wiki.cci.arts.ac.uk/uploads/images/gallery/2024-02/scaled-1680-/QIDK6deUudbGAezL-mirror.png"
+    tags: {
+        type: Array,
+        default: [""]
     },
     imageUrls: {
         type: Array,
