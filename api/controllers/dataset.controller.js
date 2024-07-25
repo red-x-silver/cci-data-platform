@@ -71,28 +71,28 @@ export const getDataset = async (req, res, next) => {
     try {
       const limit = parseInt(req.query.limit) || 9;
       const startIndex = parseInt(req.query.startIndex) || 0;
-      let offer = req.query.offer;
+      let visual = req.query.visual;
   
-      if (offer === undefined || offer === 'false') {
-        offer = { $in: [false, true] };
+      if (visual === undefined || visual === 'false') {
+        visual = { $in: [false, true] };
       }
   
-      let furnished = req.query.furnished;
+      let textual = req.query.textual;
   
-      if (furnished === undefined || furnished === 'false') {
-        furnished = { $in: [false, true] };
+      if (textual === undefined || textual === 'false') {
+        textual = { $in: [false, true] };
       }
   
-      let parking = req.query.parking;
+      let auditory = req.query.auditory;
   
-      if (parking === undefined || parking === 'false') {
-        parking = { $in: [false, true] };
+      if (auditory === undefined || auditory === 'false') {
+        auditory = { $in: [false, true] };
       }
   
-      let type = req.query.type;
+      let otherModality = req.query.otherModality;
   
-      if (type === undefined || type === 'all') {
-        type = { $in: ['sale', 'rent'] };
+      if (otherModality === undefined || otherModality === 'false') {
+        otherModality = { $in: [false, true] };
       }
   
       const searchTerm = req.query.searchTerm || '';
@@ -103,10 +103,10 @@ export const getDataset = async (req, res, next) => {
   
       const datasets = await Dataset.find({
         name: { $regex: searchTerm, $options: 'i' },
-        offer,
-        furnished,
-        parking,
-        type,
+        visual,
+        textual,
+        auditory,
+        otherModality,
       })
         .sort({ [sort]: order })
         .limit(limit)
