@@ -175,15 +175,19 @@ export default function UpdateDataset() {
 
   return (
     <main>
-      <h1 className=' text-4xl font-bold mt-20 my-7 max-w-6xl mx-auto'> Edit dataset </h1>
+      <h1 className=' text-4xl font-bold mt-20 my-7 max-w-6xl mx-auto'> 🖊️ Edit dataset </h1>
       <p className=' max-w-6xl mx-auto my-7'>
             <span className='text-xl text-gray-600 '>
-            Explore, analyze, and share quality data.
+            changes for the better
             </span>
           </p>
       
-      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-col gap-4 max-w-6xl mx-auto my-7'>
+      <form onSubmit={handleSubmit} className='flex flex-col sm:flex-col gap-3 max-w-6xl mx-auto my-7'>
         <div className='flex flex-col gap-8 flex-1  my-5'>
+        <p className='text-xl font-semibold'>
+            Dataset name
+          </p>
+
           <input
             type='text'
             placeholder='Dataset Name'
@@ -195,7 +199,7 @@ export default function UpdateDataset() {
             onChange={handleChange}
             value={formData.name}
           />
-          <div className='flex gap-8 flex-wrap text-gray-600'>
+          <div className='flex gap-8 flex-wrap'>
             <span>Please specify data modality: </span>
             <div className='flex gap-2'>
               <input
@@ -240,9 +244,12 @@ export default function UpdateDataset() {
             </div>
           </div>
 
+          <p className='text-xl font-semibold'>
+            Short description
+          </p>
            <input
             type='text'
-            placeholder='Short Description'
+            placeholder='keep it simple...'
             className='border p-3 rounded-lg'
             id='shortDescription'
             required
@@ -250,18 +257,24 @@ export default function UpdateDataset() {
             value={formData.shortDescription}
           />
 
+<p className='text-xl font-semibold'>
+            Long description
+          </p>
           <textarea
             type='text'
-            placeholder='Long Description'
+            placeholder='tell us more about the dataset...'
             className='border p-3 rounded-lg'
             id='longDescription'
             required
             onChange={handleChange}
             value={formData.longDescription}
           />
+          <p className='text-xl font-semibold'>
+            Dataset origin
+          </p>
                      <input
             type='text'
-            placeholder='Origin'
+            placeholder='where does this dataset come from?'
             className='border p-3 rounded-lg'
             id='origin'
             required
@@ -269,6 +282,9 @@ export default function UpdateDataset() {
             value={formData.origin}
           />
 
+<p className='text-xl font-semibold'>
+            Dataset license
+          </p>
           <input
             type='text'
             placeholder='License'
@@ -278,10 +294,12 @@ export default function UpdateDataset() {
             onChange={handleChange}
             value={formData.license}
           />
-
+<p className='text-xl font-semibold'>
+Recommended tasks using this dataset
+          </p>
           <input
             type='text'
-            placeholder='Recommended tasks (seperated by ;) e.g. image classfication;text-to-image generation '
+            placeholder=' what creative tasks this dataset can do? (seperated by ;) e.g. image classfication;text-to-image generation '
             className='border p-3 rounded-lg'
             id='tasks'
             required
@@ -289,9 +307,12 @@ export default function UpdateDataset() {
             value={formData.tasks}
           />
 
+<p className='text-xl font-semibold'>
+Tags
+          </p>
 <input
             type='text'
-            placeholder='Dataset tags (seperated by ;) e.g. daily object;photography '
+            placeholder='what are the keywords of this dataset? (seperated by ;) e.g. daily object;photography '
             className='border p-3 rounded-lg'
             id='tags'
             required
@@ -371,9 +392,9 @@ export default function UpdateDataset() {
           </div> */}
         </div>
         <div className='flex flex-col flex-1 gap-4 my-2'>
-          <p className='font-semibold text-xl text-gray-600'>
+          <p className='font-semibold text-xl '>
             Upload information images for the dataset:
-            <span className='font-normal ml-2'>
+            <span className='font-normal ml-2 text-gray-600'>
               The first image will be the cover (max 6)
             </span>
           </p>
