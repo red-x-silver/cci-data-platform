@@ -18,6 +18,8 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [showDatasetsError, setShowDatasetsError] = useState(false);
+  const [userDatasets, setUserDatasets] = useState([]);
   const dispatch = useDispatch();
   //console.log(formData);
 
@@ -136,10 +138,45 @@ export default function Profile() {
       dispatch(signOutFailure(error.message));}
 }
 
+const handleShowDatasets = async () => {
+  try {
+    setShowDatasetsError(false);
+    const res = await fetch(`/api/user/datasets/${currentUser._id}`);
+    const data = await res.json();
+    if (data.success === false) {
+      setShowDatasetsError(true);
+      return;
+    }
+
+    setUserDatasets(data);
+  } catch (error) {
+    setShowDatasetsError(true);
+  }
+};
+
+const handleDatasetDelete = async (datasetId) => {
+  try {
+    const res = await fetch(`/api/dataset/delete/${datasetId}`, {
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if (data.success === false) {
+      console.log(data.message);
+      return;
+    }
+
+    setUserDatasets((prev) =>
+      prev.filter((dataset) => dataset._id !== datasetId)
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center my-7 fron-semibold'>Profile</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4 mt-20'>
         <input 
         onChange={(e) => {setFile(e.target.files[0])}}
         type="file" ref={fileInputRef} hidden accept='image/*' />
@@ -180,8 +217,55 @@ export default function Profile() {
     <p className='text-red-600 mt-5'>{error ? error : ""}</p>
     <p className='text-blue-600 mt-5'>{updateSuccess ? "User profile successfully updated." : ""}</p>
     <p className='text-blue-600 mt-5'>{deleteSuccess ? "User profile successfully deleted." : ""}</p>
+    <button onClick={handleShowDatasets} className='text-blue-700 w-full'>
+        Show Datasets
+      </button>
+      <p className='text-red-700 mt-5'>
+        {showDatasetsError ? 'Error showing datasets' : ''}
+      </p>
+
+      {userDatasets && userDatasets.length > 0 && (
+        <div className='flex flex-col gap-4'>
+          <h1 className='text-xl my-7 fron-semibold'>
+            datasets that you have uploaded:
+          </h1>
+          {userDatasets.map((dataset) => (
+            <div
+              key={dataset._id}
+              className='border rounded-lg p-3 flex justify-between items-center gap-4'
+            >
+              <Link to={`/dataset/${dataset._id}`}>
+                <img
+                  src={dataset.imageUrls[0]}
+                  alt='cover image'
+                  className='h-16 w-16 object-contain'
+                />
+              </Link>
+              <Link
+                className='text-slate-700 font-semibold  hover:underline truncate flex-1'
+                to={`/dataset/${dataset._id}`}
+              >
+                <p>{dataset.name}</p>
+              </Link>
+
+              <div className='flex flex-col item-center'>
+              <Link to={`/update-dataset/${dataset._id}`}>
+                  <button className='text-blue-600 '>Edit</button>
+                </Link>
+                <button
+                  onClick={() => handleDatasetDelete(dataset._id)}
+                  className='text-red-700 '
+                >
+                  Delete
+                </button>
+          
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
 // firebass storage rules
