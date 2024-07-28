@@ -33,6 +33,7 @@ export default function Profile() {
     }
   }, [file]); //if there is a file, then call this handleFileUpload function
   
+  //handle upload profile image to firebase storage
   const handleFileUpload = async (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + '-' + file.name;
@@ -71,12 +72,15 @@ export default function Profile() {
 
   }
   
+   //handle changes in form fields for user info
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value
     });
   }
+
+   //handle submit new user info to update a user's profile
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -102,6 +106,7 @@ export default function Profile() {
 
   }
   
+   //handle delete user profile button click 
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
@@ -124,6 +129,7 @@ export default function Profile() {
 
   }
 
+   //handle sign out button click 
   const handleSignOut = async () => { 
     try {
       dispatch(signOutStart());
@@ -142,6 +148,7 @@ export default function Profile() {
       dispatch(signOutFailure(error.message));}
 }
 
+//handle show datasets button click, for retrieving datasets created by one user
 const handleShowDatasets = async () => {
   try {
     setShowDatasetsError(false);
@@ -158,6 +165,7 @@ const handleShowDatasets = async () => {
   }
 };
 
+//handle delete datasets button click
 const handleDatasetDelete = async (datasetId) => {
   try {
     const res = await fetch(`/api/dataset/delete/${datasetId}`, {

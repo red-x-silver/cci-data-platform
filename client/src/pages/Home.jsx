@@ -13,6 +13,8 @@ export default function Home() {
   const [audioDatasets, setAudioDatasets] = useState([]);
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+
+  //for the search functionality, handling submitting search term
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
@@ -30,17 +32,22 @@ export default function Home() {
   }, [location.search]);
 
   SwiperCore.use([Navigation]);
-  console.log(trendDatasets);
+  //console.log(trendDatasets);
+
   useEffect(() => {
+
+    //get datasets by their created_at time stamping, at descening order, to get the most recent datasets
     const fetchTrendDatasets = async () => {
       try {
-        const res = await fetch('/api/dataset/get?&sort=created_at&order=desc'); //future: get new logic here for getting trend datasets
+        const res = await fetch('/api/dataset/get?&sort=created_at&order=desc');
         const data = await res.json();
         setTrendDatasets(data);
       } catch (error) {
         console.log(error);
       }
     };
+
+    //get datasets with auditory modality
     const fetchAudioDatasets = async () => {
       try {
         const res = await fetch('/api/dataset/get?auditory=true&limit=4');
@@ -51,6 +58,7 @@ export default function Home() {
         console.log(error);
       }
     };
+    //get datasets with visual modality
     const fetchImageDatasets = async () => {
       try {
         const res = await fetch('/api/dataset/get?visual=true&limit=4');

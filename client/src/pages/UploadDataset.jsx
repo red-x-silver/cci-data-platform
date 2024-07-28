@@ -34,6 +34,7 @@ export default function UploadDataset() {
   const [loading, setLoading] = useState(false);
   console.log(formData);
 
+  //handle upload dataset's info images button click
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
