@@ -7,6 +7,10 @@ import { set } from 'mongoose';
 import { updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserFailure,deleteUserSuccess,signOutStart,signOutSuccess,signOutFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom';
+import {
+  FaPencilAlt,
+  FaRegTrashAlt
+} from 'react-icons/fa';
 
 export default function Profile() {
   const fileInputRef = useRef(null);
@@ -248,15 +252,18 @@ const handleDatasetDelete = async (datasetId) => {
                 <p>{dataset.name}</p>
               </Link>
 
-              <div className='flex flex-col item-center'>
+              <div className='flex flex-col item-center '>
               <Link to={`/update-dataset/${dataset._id}`}>
-                  <button className='text-blue-600 '>Edit</button>
+                  <button className='text-blue-600 text-xl'><FaPencilAlt />
+                  </button>
                 </Link>
+                <br />
                 <button
                   onClick={() => handleDatasetDelete(dataset._id)}
-                  className='text-red-700 '
+                  className='text-red-600 text-xl'
                 >
-                  Delete
+                  <FaRegTrashAlt />
+
                 </button>
           
               </div>

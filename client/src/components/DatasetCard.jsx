@@ -20,14 +20,14 @@ export default function DatasetCard({ dataset }) {
 
       
 
-          <p className='text-sm  line-clamp-2'>
+          <p className='text-sm  line-clamp-3'>
             {dataset.shortDescription}
           </p>
-          <p className='mt-1 '>
-{dataset.tasks}
-          </p>
+          {/* <p className='mt-1 text-sm  font-semibold'>
+   {dataset.tasks}
+          </p> */}
           
-          <div className='flex items-center gap-1 text-sm'>
+          <div className='items-center gap-1 text-sm'>
           <ul className='  text-blue-600 font-semibold flex flex-wrap items-center gap-4 sm:gap-6'>
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 {dataset.visual

@@ -67,13 +67,6 @@ export default function Search() {
   }, [location.search]);
 
   const handleChange = (e) => {
-    // if (
-    //   e.target.id === 'all' ||
-    //   e.target.id === 'rent' ||
-    //   e.target.id === 'sale'
-    // ) {
-    //   setSidebardata({ ...sidebardata, visual: e.target.id });
-    // }
 
     if (e.target.id === 'searchTerm') {
       setSidebardata({ ...sidebardata, searchTerm: e.target.value });
@@ -198,7 +191,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.visual}
               />
-              <span>Textual</span>
+              <span>Visual</span>
             </div>
 
             <div className='flex gap-2'>
