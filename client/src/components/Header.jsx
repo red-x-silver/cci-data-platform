@@ -26,24 +26,24 @@ export default function Header() {
 
   return (
     <header className="bg-black shadow-md font-family:roboto-mono">
-        <div className='flex justify-between items-center p-4 '>
+        <div className='flex justify-between items-end p-4 '>
             <Link to='/'>
-            <h1 className=' text-sm sm:text-2xl flex flex-wrap'>
-            <span className='text-white font-bold mx-1'>CCI </span>
-            <span className='text-blue-600'> Datasets for Creative Projects</span>
+            <h1 className=' text-sm sm:text-xl flex flex-wrap'>
+            <span className='text-white mx-1'>CCI  </span>
+            <span className='text-blue-600'> Datasets for Creative AI Projects</span>
             </h1>
             </Link>
 
-            <form onSubmit={handleSubmit} className='bg-white p-3 rounded-lg flex items-center standard-text'>
-            <input type='text' placeholder='search...' className='bg-transparent focus:outline-none w-24 sm:w-80'
+            {/* <form onSubmit={handleSubmit} className='bg-white  p-3 rounded-lg flex items-center'>
+            <input type='text' placeholder='search...' className='bg-transparent focus:outline-none'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)} />
             <button><FaSearch className='text-blue-600' /></button>
-            </form> 
+            </form>  */}
 
             <nav>
                 <ul className='flex gap-6 standard-text'>
-                <Link to='/'> <li className='mx-2 text-white hidden sm:inline hover:underline'>Datasets</li> </Link>
+                <Link to='/search'> <li className='mx-2 text-white hidden sm:inline hover:underline'>Datasets</li> </Link>
                 <Link to='/projects'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>Projects</li></Link>
                  <Link to='/about'>   <li className='mx-2 text-white hidden sm:inline hover:underline'>About</li></Link>
               

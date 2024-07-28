@@ -23,6 +23,7 @@ export default function UpdateDataset() {
     license:'',
     tasks:'',
     tags:'',
+    downloadLink:'',
     visual: false,
     textual: false,
     auditory: false,
@@ -269,6 +270,20 @@ export default function UpdateDataset() {
             onChange={handleChange}
             value={formData.longDescription}
           />
+
+<p className='text-xl font-semibold '>
+            Download link
+          </p>
+           <input
+            type='text'
+            placeholder='please upload it to XXX, and paste the download link here'
+            className='border p-3 rounded-lg'
+            id='downloadLink'
+            required
+            onChange={handleChange}
+            value={formData.downloadLink}
+          />
+
           <p className='text-xl font-semibold'>
             Dataset origin
           </p>
@@ -320,76 +335,6 @@ Tags
             value={formData.tags}
           />
 
-
-
-          
-          {/* <div className='flex flex-wrap gap-6'>
-            <div className='flex items-center gap-2'>
-              <input
-                type='number'
-                id='bedrooms'
-                min='1'
-                max='10'
-                required
-                className='p-3 border border-gray-300 rounded-lg'
-                onChange={handleChange}
-                value={formData.bedrooms}
-              />
-              <p>Beds</p>
-            </div>
-            <div className='flex items-center gap-2'>
-              <input
-                type='number'
-                id='bathrooms'
-                min='1'
-                max='10'
-                required
-                className='p-3 border border-gray-300 rounded-lg'
-                onChange={handleChange}
-                value={formData.bathrooms}
-              />
-              <p>Baths</p>
-            </div>
-            <div className='flex items-center gap-2'>
-              <input
-                type='number'
-                id='regularPrice'
-                min='50'
-                max='10000000'
-                required
-                className='p-3 border border-gray-300 rounded-lg'
-                onChange={handleChange}
-                value={formData.regularPrice}
-              />
-              <div className='flex flex-col items-center'>
-                <p>Regular price</p>
-                {formData.type === 'auditory' && (
-                  <span className='text-xs'>($ / month)</span>
-                )}
-              </div>
-            </div>
-            {formData.other && (
-              <div className='flex items-center gap-2'>
-                <input
-                  type='number'
-                  id='discountPrice'
-                  min='0'
-                  max='10000000'
-                  required
-                  className='p-3 border border-gray-300 rounded-lg'
-                  onChange={handleChange}
-                  value={formData.discountPrice}
-                />
-                <div className='flex flex-col items-center'>
-                  <p>Discounted price</p>
-
-                  {formData.type === 'auditory' && (
-                    <span className='text-xs'>($ / month)</span>
-                  )}
-                </div>
-              </div>
-            )}
-          </div> */}
         </div>
         <div className='flex flex-col flex-1 gap-4 my-2'>
           <p className='font-semibold text-xl '>

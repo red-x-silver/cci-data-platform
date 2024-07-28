@@ -1,6 +1,7 @@
 import Dataset from '../models/dataset.model.js';
 import { errorHandler } from '../utils/error.js';
 
+//create a new dataset
 export const createDataset= async (req, res, next) => {
     try {
         const dataset = await Dataset.create(req.body);
@@ -12,7 +13,7 @@ export const createDataset= async (req, res, next) => {
     }
 }
 
-
+//delete a dataset
 export const deleteDataset = async (req, res, next) => {
     const dataset = await Dataset.findById(req.params.id);
 
@@ -32,6 +33,7 @@ export const deleteDataset = async (req, res, next) => {
   }
 }
 
+//update a dataset
 export const updateDataset = async (req, res, next) => {
     const dataset = await Dataset.findById(req.params.id);
     if (!dataset) {
@@ -54,7 +56,7 @@ export const updateDataset = async (req, res, next) => {
 
 }
 
-
+//get a dataset by its id
 export const getDataset = async (req, res, next) => {
     try {
       const dataset = await Dataset.findById(req.params.id);
@@ -67,7 +69,8 @@ export const getDataset = async (req, res, next) => {
     }
   };
   
-  export const getDatasets = async (req, res, next) => {
+//get datasets by search terms
+export const getDatasets = async (req, res, next) => {
     try {
       const limit = parseInt(req.query.limit) || 9;
       const startIndex = parseInt(req.query.startIndex) || 0;

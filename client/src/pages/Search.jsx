@@ -182,7 +182,7 @@ export default function Search() {
             </div>
           </div> */}
           <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Data Modalities:</label>
+            <label className='font-semibold'>Data Modalities: </label>
             <div className='flex gap-2'>
               <input
                 type='checkbox'

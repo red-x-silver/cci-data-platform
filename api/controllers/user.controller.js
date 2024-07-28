@@ -7,6 +7,7 @@ export const test=(req, res) => {
     res.json({message: 'user api route is working'});
 }
 
+//update user profile information
 export const updateUser= async (req, res, next) => {
     if(req.user.id !== req.params.id) return next(errorHandler(403, 'You are not authorized to update this user'));
     try {
@@ -32,6 +33,7 @@ export const updateUser= async (req, res, next) => {
     }
 };
 
+//delete user profile information
 export const deleteUser = async (req, res, next) => {
     if(req.user.id !== req.params.id) return next(errorHandler(401, 'You are not authorized to delete this user'));
     try {
@@ -43,6 +45,7 @@ export const deleteUser = async (req, res, next) => {
     }
 };
 
+//retrieve the datasets uploaded by a user
 export const getUserDatasets = async (req, res, next) => {
 
     if (req.user.id === req.params.id) {
