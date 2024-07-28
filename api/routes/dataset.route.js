@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/create', verifyToken, createDataset);
 router.delete('/delete/:id', verifyToken, deleteDataset);
 router.post('/update/:id', verifyToken, updateDataset);
-router.get('/get/:id', verifyToken, getDataset);
+router.get('/get/:id', getDataset);
 router.get('/get', getDatasets);
 
 export default router;
