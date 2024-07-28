@@ -17,7 +17,7 @@ try {
 
 };  
 
-//log in controller, to authenticate a user
+//log in controller, to authenticate a user, create a local token
 export const login = async(req, res, next) => {
 const {email, password} = req.body;
 try{
